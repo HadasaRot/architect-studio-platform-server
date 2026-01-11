@@ -12,3 +12,95 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+//הגדרות enums
+
+enum UserRole {
+  ARCHITECT
+  CLIENT
+}
+
+enum ProjectStatus {
+  PLANNING
+  IN_PROGRESS
+  DONE
+}
+
+enum ContentItemType {
+  FILE
+  TEXT
+}
+
+//הגדרות טבלאות
+model Client {
+  id          String   @id @default(uuid())
+  displayName String
+  createAt    DateTime @default(now())
+
+  users    User[]
+  Projects ClientProject[]
+  chat     Chat?
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  role         UserRole
+  clientId     String?
+
+  createAt DateTime @default(now())
+
+  client   Client?       @relation(fields: [clientId], references: [id])
+  messages ChatMessage[]
+}
+
+model ClientProject {
+  id       String        @id @default(uuid())
+  clientId String
+  title    String
+  status   ProjectStatus
+  createAt DateTime      @default(now())
+
+  client Client         @relation(fields: [clientId], references: [id])
+  groups ContentGroup[]
+}
+
+model ContentGroup {
+  id              String @id @default(uuid())
+  clientProjectId String
+  title           String
+  order           Int
+
+  project ClientProject @relation(fields: [clientProjectId], references: [id])
+  items   ContentItem[]
+}
+
+model ContentItem {
+  id             String          @id @default(uuid())
+  contentGroupId String
+  type           ContentItemType
+  fileUrl        String?
+  description    String?
+
+  group ContentGroup @relation(fields: [contentGroupId], references: [id])
+}
+
+model Chat {
+  id       String @id @default(uuid())
+  clientId String @unique
+
+  client   Client        @relation(fields: [clientId], references: [id])
+  messages ChatMessage[]
+}
+
+model ChatMessage {
+  id           String   @id @default(uuid())
+  chatId       String
+  senderUserId String
+  message      String
+  createAt     DateTime @default(now())
+
+  chat Chat @relation(fields: [chatId], references: [id])
+  user User @relation(fields: [senderUserId], references: [id])
+}
