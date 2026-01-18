@@ -1,6 +1,7 @@
 import express from 'express';
 import { errorMiddleware } from './middlewares/error.middleware';
 import testRoutes from "./routes/test.routes";
+import clientsRoutes from './routes/clients.routes';
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.get('/health', (req, res) => {
 });
 
 app.use("/test", testRoutes);
+app.use("/api/clients", clientsRoutes);
 
 app.use(errorMiddleware);
 
