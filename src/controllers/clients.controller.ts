@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-
+import * as ClientsService from '../services/clients.service';
 export const createClient = async (req: Request, res: Response) => {
     return res.status(501).json({ message: 'Not implemented' });
 };
