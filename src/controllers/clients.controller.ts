@@ -10,6 +10,7 @@ export const createClient = async (req: Request, res: Response) => {
         const client = await ClientsService.createClient(displayName);
         return res.status(201).json(client);
     } catch (error) {
+        console.error(error);
         return res.status(500).json({ error: 'Failed to create client' });
     }
 };

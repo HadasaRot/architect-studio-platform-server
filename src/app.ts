@@ -15,7 +15,7 @@ app.get('/health', (req, res) => {
 });
 
 app.use("/test", testRoutes);
-app.use("/api/clients", clientsRoutes);
+app.use('/api/clients', clientsRoutes);
 
 app.use(errorMiddleware);
 

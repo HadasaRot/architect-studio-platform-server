@@ -1,10 +1,8 @@
 import { PrismaClient } from "../generated/prisma";
+import { PrismaPg } from "@prisma/adapter-pg";
 
-export let prisma: PrismaClient;
+const adapter = new PrismaPg({
+    connectionString: process.env.DATABASE_URL!,
+});
 
-export function getPrisma() {
-    if (!prisma) {
-        prisma = new PrismaClient();
-    }
-    return prisma;
-}
+export const prisma = new PrismaClient({ adapter });

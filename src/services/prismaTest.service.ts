@@ -1,7 +1,6 @@
-import { getPrisma } from "../prisma/client";
+import { prisma } from "../prisma/client";
 
 export async function prismaTest() {
-    const prisma = getPrisma();
 
     const client = await prisma.client.create({
         data: {
