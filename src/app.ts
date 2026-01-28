@@ -3,6 +3,8 @@ import { errorMiddleware } from './middlewares/error.middleware';
 import testRoutes from "./routes/test.routes";
 import clientsRoutes from './routes/clients.routes';
 import usersRoutes from './routes/users.routes';
+import clientProjectsRoutes from './routes/clientProjects.routes';
+
 const app = express();
 
 // middleware לקריאת JSON
@@ -17,6 +19,7 @@ app.get('/health', (req, res) => {
 app.use("/test", testRoutes);
 app.use('/api/clients', clientsRoutes);
 app.use('/api/users', usersRoutes)
+app.use('/api/client-projects', clientProjectsRoutes);
 
 app.use(errorMiddleware);
 
