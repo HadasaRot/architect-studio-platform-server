@@ -3,7 +3,7 @@ import { errorMiddleware } from './middlewares/error.middleware';
 import testRoutes from "./routes/test.routes";
 import clientsRoutes from './routes/clients.routes';
 import usersRoutes from './routes/users.routes';
-import clientProjectsRoutes from './routes/clientProjects.routes';
+import clientProjectsRoutes from './routes/client-projects.routes';
 
 const app = express();
 
