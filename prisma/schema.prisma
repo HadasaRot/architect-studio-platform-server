@@ -49,18 +49,18 @@ model User {
   role         UserRole
   clientId     String?
 
-  createAt DateTime @default(now())
+  createdAt DateTime @default(now())
 
   client   Client?       @relation(fields: [clientId], references: [id])
   messages ChatMessage[]
 }
 
 model ClientProject {
-  id       String        @id @default(uuid())
-  clientId String
-  title    String
-  status   ProjectStatus
-  createAt DateTime      @default(now())
+  id        String        @id @default(uuid())
+  clientId  String
+  title     String
+  status    ProjectStatus
+  createdAt DateTime      @default(now())
 
   client Client         @relation(fields: [clientId], references: [id])
   groups ContentGroup[]
