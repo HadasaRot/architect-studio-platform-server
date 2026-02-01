@@ -34,3 +34,12 @@ export const getClientProjectById = async (
         message: 'getClientProjectById not implemented',
     });
 };
+
+export const listClientProjects = async (
+    req: Request,
+    res: Response
+) => {
+    return res.status(501).json({
+        message: 'listClientProjects not implemented',
+    });
+};
