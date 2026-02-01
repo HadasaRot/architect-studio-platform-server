@@ -39,7 +39,11 @@ export const listClientProjects = async (
     req: Request,
     res: Response
 ) => {
-    return res.status(501).json({
-        message: 'listClientProjects not implemented',
+    const { clientId } = req.params;
+    const projects = await clientProjectService.listClientProjects(clientId);
+
+    return res.status(200).json({
+        message: 'Client projects retrieved successfully',
+        projects,
     });
 };
