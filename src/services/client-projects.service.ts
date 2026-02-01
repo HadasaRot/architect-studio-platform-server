@@ -23,11 +23,12 @@ export async function getClientProjectById(id: string) {
 };
 
 export async function listClientProjects(clientId: string) {
-    console.log('clientId from params:', clientId);
-
     return prisma.clientProject.findMany({
         where: {
             clientId,
+        },
+        orderBy: {
+            createdAt: 'desc',
         },
     });
 }
