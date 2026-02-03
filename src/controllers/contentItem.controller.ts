@@ -12,6 +12,17 @@ export async function createContentItemController(
     try {
         const { groupId } = req.params;
         const { type, fileUrl, description } = req.body;
+        if (type === "FILE" && !fileUrl) {
+            return res.status(400).json({
+                message: "fileUrl is required when type is FILE",
+            });
+        }
+
+        if (type === "TEXT" && !description) {
+            return res.status(400).json({
+                message: "description is required when type is TEXT",
+            });
+        }
 
         const item = await createContentItem({
             groupId,
