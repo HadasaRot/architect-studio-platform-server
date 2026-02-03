@@ -5,6 +5,7 @@ import clientsRoutes from './routes/clients.routes';
 import usersRoutes from './routes/users.routes';
 import clientProjectsRoutes from './routes/client-projects.routes';
 import contentGroupRoutes from './routes/contentGroup.routes';
+import contentItemRoutes from './routes/contentItem.routes';
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use('/api/clients', clientsRoutes);
 app.use('/api/users', usersRoutes)
 app.use('/api/client-projects', clientProjectsRoutes);
 app.use('/api/projects', contentGroupRoutes);
+app.use('/api', contentItemRoutes);
 
 app.use(errorMiddleware);
 
