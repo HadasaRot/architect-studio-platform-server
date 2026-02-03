@@ -6,12 +6,14 @@ import usersRoutes from './routes/users.routes';
 import clientProjectsRoutes from './routes/client-projects.routes';
 import contentGroupRoutes from './routes/contentGroup.routes';
 import contentItemRoutes from './routes/contentItem.routes';
+import { mockAuthMiddleware } from './middlewares/mockAuth.middleware';
 
 const app = express();
 
+app.use(mockAuthMiddleware);
+
 // middleware לקריאת JSON
 app.use(express.json());
-
 
 // בדיקת חיים – זמני
 app.get('/health', (req, res) => {
