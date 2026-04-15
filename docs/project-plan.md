@@ -110,7 +110,7 @@
 לכל לקוח יש פרויקט אחד או יותר; אם רק אחד – נפתח מיד, אם יותר – יש אפשרות לבחור.
 התצוגה כוללת:
 צ'אט עם האדריכלית – היסטוריית שיחות אחת לכל לקוח, כולל קבצים (PDF, תמונות וכו'), שמורים בהיסטוריה בלבד.
-תוכן מונגש ללקוח – ריבועים/תיקיות עם קבצים, טקסטים והסברים שהאדריכלית העלתה.
+תוכן מונגש ללקוח – תיקיות תוכן נפרדות לכל פרויקט, שבתוכן האדריכלית מעלה קבצים, מדיה והסברים.
 ציר זמן משוער – מה צפוי להתרחש ומה כבר בוצע.
 האדריכלית יכולה להוסיף תוכן חדש, להגדיר סדר, לערוך ולהסיר.
 דשבורדים
@@ -133,17 +133,20 @@
 קשר 1:N עם Client.
 תוכן ותקיות (ContentGroup & ContentItem)
 ContentGroup: id, clientProjectId (FK), title, order
-ContentItem: id, contentGroupId (FK), fileType (Enum), filePath, title, order
-תומך בציר זמן מתוכנן ו-ActualTimelineItem (status הביצוע).
+ContentItem: id, contentGroupId (FK), type, title, description, fileUrl, order
+`ContentGroup` מייצג תיקיה/קטגוריה של תוכן בפרויקט, ואינו חלק מציר הזמן.
+`ContentItem` מייצג פריט תוכן בתוך תיקיה, ויכול להיות קובץ, תמונה, וידאו, PDF או טקסט.
+מומלץ לשמור גם שדות metadata בהמשך כגון `mimeType`, `originalFileName`, `size`, `thumbnailUrl` לפי צורך.
 ציר זמן (TimelineItems)
 PlannedTimelineItem: id, clientProjectId, title, expectedDate, order
 ActualTimelineItem: id, clientProjectId, plannedTimelineItemId (optional), title, actualDate
-מקשר תוכן שכבר בוצע עם התוכניות המקוריות.
+ציר הזמן הוא ישות נפרדת מהתוכן. הוא מתאר שלבים, סטטוסים והתקדמות, ולא מחליף את תיקיות התוכן.
 צ'אט (Chat & ChatFiles)
 Chat: id, clientId (FK), messages (linked to ChatMessage)
 ChatMessage: id, chatId (FK), senderRole, text, createdAt
 ChatFile: id, chatMessageId (FK), fileType (Enum), filePath
 שמירת היסטוריית שיחות אחת לכל לקוח, לא משתנה בין פרויקטים.
+אם בעתיד יהיה צורך לקשר הודעה לפרויקט מסוים, עדיף להוסיף שיוך אופציונלי של הודעה לפרויקט במקום לפצל כבר עכשיו לצ'אט נפרד לכל פרויקט.
 שיפורים שהומלצו
 להפריד את התמונות בפרויקטים לטבלת ProjectImages כדי לכלול Alt text וסדר הצגה.
 Enums בשדות FileType וב-Role לניהול קל וברור ב-Prisma.
