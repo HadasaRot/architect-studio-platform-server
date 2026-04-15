@@ -6,10 +6,9 @@ export function mockAuthMiddleware(
     next: NextFunction
 ) {
     req.user = {
-        id: 'mock-user-id',
-        role: 'ARCHITECT', // החלף ל-CLIENT לבדיקות
-        clientId: null,    // או UUID של לקוח
+        id: '1',
+        role: 'CLIENT',
+        clientId: 'd63936c9-e084-4afe-aa98-837dafdf0a80',
     };
-
     next();
 }

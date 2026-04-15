@@ -1,0 +1,54 @@
+סיכום מבנה מסד נתונים – מערכת אדריכלית
+Users
+טבלה זו מייצגת משתמשים שמתחברים למערכת. כל משתמש יכול להיות אדריכלית או לקוח. משתמש רגיל (Viewer) אינו נרשם כלל למסד הנתונים.
+שדה	סוג	הערה	הסבר למה מיועד השדה
+id	UUID	PK	מזהה ייחודי למשתמש
+email	String	Unique	כתובת מייל להתחברות
+passwordHash	String		סיסמה מוצפנת
+role	Enum	ARCHITECT / CLIENT	סוג המשתמש והרשאותיו
+clientId	UUID	Nullable FK	מצביע ללקוח. null עבור אדריכלית
+createdAt	DateTime		מועד יצירת המשתמש
+Clients
+טבלה זו מייצגת ישות עסקית של לקוח. לקוח יכול להכיל מספר משתמשים (למשל בני זוג).
+שדה	סוג	הערה	הסבר למה מיועד השדה
+id	UUID	PK	מזהה ייחודי ללקוח
+displayName	String		שם תצוגה לוגי של הלקוח
+createdAt	DateTime		מועד יצירת הלקוח
+ 
+ClientProjects
+מייצגת פרויקטים פרטיים של לקוחות באזור האישי. לא קשור כלל לאתר התדמית.
+שדה	סוג	הערה	הסבר למה מיועד השדה
+id	UUID	PK	מזהה פרויקט
+clientId	UUID	FK	שיוך ללקוח
+title	String		שם הפרויקט
+status	Enum	PLANNING / IN_PROGRESS / DONE	סטטוס כללי של הפרויקט
+createdAt	DateTime		מועד יצירת הפרויקט
+ContentGroups
+מדמה תיקיות בתוך פרויקט. כל תיקיה יכולה להכיל טקסטים וקבצים רבים.
+שדה	סוג	הערה	הסבר למה מיועד השדה
+id	UUID	PK	מזהה תיקיה
+clientProjectId	UUID	FK	שיוך לפרויקט
+title	String		כותרת התיקיה
+order	Int		סדר הצגה בפרויקט
+ContentItems
+פריטים בתוך תיקיה – יכולים להיות מסמך, תמונה או טקסט חופשי.
+שדה	סוג	הערה	הסבר למה מיועד השדה
+id	UUID	PK	מזהה פריט
+contentGroupId	UUID	FK	שיוך לתיקיה
+type	Enum	FILE / TEXT	סוג הפריט
+fileUrl	String	Nullable	כתובת קובץ אם מדובר בקובץ
+description	Text	Nullable	טקסט חופשי להסבר
+Chats
+צ׳אט אחד לכל לקוח, משותף לכל המשתמשים של הלקוח ולאדריכלית.
+שדה	סוג	הערה	הסבר למה מיועד השדה
+id	UUID	PK	מזהה צ׳אט
+clientId	UUID	FK	שיוך ללקוח
+ChatMessages
+הודעות בצ׳אט. נשמר מי כתב כל הודעה.
+שדה	סוג	הערה	הסבר למה מיועד השדה
+id	UUID	PK	מזהה הודעה
+chatId	UUID	FK	שיוך לצ׳אט
+senderUserId	UUID	FK	מי שלח את ההודעה
+message	Text		תוכן ההודעה
+createdAt	DateTime		זמן שליחת ההודעה
+

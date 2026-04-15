@@ -9,7 +9,7 @@ export async function createClientProject(
     },
     user: AuthUser
 ) {
-    requireClientAccess(user, data.clientId);
+
     if (user.role !== 'ARCHITECT') {
         throw new Error('Forbidden: only architect can create projects');
     }
